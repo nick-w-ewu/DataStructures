@@ -66,7 +66,6 @@ public class BinarySearchTree {
 		root = insert(root, data); 
 	} 
 
-
    /** 
     * Recursive insert -- given a node pointer, recur down and 
     * insert the given data into the tree. Returns the new 
