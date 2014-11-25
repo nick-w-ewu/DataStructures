@@ -34,7 +34,8 @@ public class BinarySearchTree {
 	 * Returns true if the given target is in the binary tree. 
 	 * Uses a recursive helper. 
 	 */ 
-	public boolean lookup(int data) { 
+	public boolean lookup(int data)
+	{ 
 		return(lookup(root, data)); 
 	} 
 
@@ -42,18 +43,23 @@ public class BinarySearchTree {
 	 * Recursive lookup  -- given a node, recur 
 	 * down searching for the given data. 
 	 */ 
-	private boolean lookup(Node node, int data) { 
-		if (node==null) { 
+	private boolean lookup(Node node, int data)
+	{ 
+		if (node==null)
+		{ 
 			return(false); 
 		}
 
-		if (data==node.data) { 
+		if (data==node.data)
+		{ 
 			return(true); 
 		} 
-		else if (data<node.data) { 
+		else if (data<node.data)
+		{ 
 			return(lookup(node.left, data)); 
 		} 
-		else { 
+		else
+		{ 
 			return(lookup(node.right, data)); 
 		} 
 	} 
@@ -62,7 +68,8 @@ public class BinarySearchTree {
 	 * Inserts the given data into the binary tree. 
 	 * Uses a recursive helper. 
 	 */ 
-	public void insert(int data) { 
+	public void insert(int data)
+	{ 
 		root = insert(root, data); 
 	} 
 
@@ -72,15 +79,20 @@ public class BinarySearchTree {
     * node pointer (the standard way to communicate
     * a changed pointer back to the caller). 
     */ 
-	private Node insert(Node node, int data) { 
-		if (node==null) { 
+	private Node insert(Node node, int data)
+	{ 
+		if (node==null)
+		{ 
 			node = new Node(data); 
 		} 
-		else { 
-			if (data <= node.data) { 
+		else
+		{ 
+			if (data <= node.data)
+			{ 
 				node.left = insert(node.left, data); 
 			} 
-			else { 
+			else
+			{ 
 				node.right = insert(node.right, data); 
 			} 
 		}
@@ -130,12 +142,17 @@ public class BinarySearchTree {
 	 * Prints the node values in the "inorder" order. 
 	 * Uses a recursive helper to do the traversal. 
 	 */ 
-	public void printTree() { 
+	public void printTree()
+	{ 
 		printTree(root); 
 		System.out.println(); 
 	}
-	private void printTree(Node node) { 
-		if (node == null) return;
+	private void printTree(Node node)
+	{ 
+		if (node == null)
+		{
+			return;
+		}
 
 		// left, node itself, right 
 		printTree(node.left); 
