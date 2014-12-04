@@ -1,6 +1,12 @@
 
 public class searchPrefix
 {
+	public static void main(String[] args)
+	{
+		WordItem words[] = new WordItem[6];
+		
+		
+	}
 	public static int binarySearch(String[] ara, String target)
 	{
 		int high = ara.length-1;
