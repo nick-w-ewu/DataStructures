@@ -4,6 +4,7 @@ public class Trie2
 {
 	
 	private TrieNode root;
+	WordItem dict[];
 	
 	private class TrieNode
 	{
@@ -12,7 +13,7 @@ public class Trie2
 		//Basically it acts like a Hashtable or Hashmap, establishing a mapping between Key and Value
 		//Unlike hash table, keys in TreeMap are sorted!
 		boolean aword = false;
-		                                                    
+		ArrayList<String> mostUsed;
 	}
 	
 	public Trie2()
@@ -28,12 +29,15 @@ public class Trie2
 	private void insertString(TrieNode root, String s)
 	{
 		TrieNode cur = root;
+		String prefix = "";
 		for (char ch : s.toCharArray())
 		{
+			prefix += ch;
 			TrieNode next = cur.children.get(ch);
 			if (next == null)
 			{
 				cur.children.put(ch, next = new TrieNode());
+				//insert most used words here, compute for each prefix
 			}
 			cur = next;
 		}
