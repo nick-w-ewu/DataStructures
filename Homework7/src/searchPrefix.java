@@ -25,7 +25,7 @@ public class searchPrefix
 		System.out.println(dictonary.findWord("aa"));
 		System.out.println(dictonary.findWord("aac"));
 		System.out.println(dictonary.findWord("aach"));
-		System.out.println(dictonary.findWord("aac"));
+		System.out.println(dictonary.findWord("b"));
 		
 //		int first = findPrefix(words, "ac");
 //		int last = findLast(words, "ad");
