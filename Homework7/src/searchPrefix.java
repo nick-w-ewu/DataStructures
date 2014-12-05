@@ -1,19 +1,21 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 
 public class searchPrefix
 {
 	public static void main(String[] args)
 	{
-		WordItem words[] = new WordItem[7];
-		words[0] = new WordItem("a", 7300);
-		words[1] = new WordItem("aa", 3);
-		words[2] = new WordItem("aachen", 9);
-		words[3] = new WordItem("aalto", 2);
-		words[4] = new WordItem("ab", 4);
-		words[5] = new WordItem("account", 8);
-		words[6] = new WordItem("be", 5);
+		WordItem words[] = readDictonary();
+//		words[0] = new WordItem("a", 7300);
+//		words[1] = new WordItem("aa", 3);
+//		words[2] = new WordItem("aachen", 9);
+//		words[3] = new WordItem("aalto", 2);
+//		words[4] = new WordItem("ab", 4);
+//		words[5] = new WordItem("account", 8);
+//		words[6] = new WordItem("be", 5);
 		for(WordItem word : words)
 		{
 			System.out.println(word);
@@ -22,10 +24,10 @@ public class searchPrefix
 		Trie2 dictonary = new Trie2(words);
 		dictonary.insertDictonary();
 		System.out.println(dictonary.findWord("a"));
-		System.out.println(dictonary.findWord("aa"));
-		System.out.println(dictonary.findWord("aac"));
-		System.out.println(dictonary.findWord("aach"));
-		System.out.println(dictonary.findWord("b"));
+//		System.out.println(dictonary.findWord("aa"));
+//		System.out.println(dictonary.findWord("aac"));
+//		System.out.println(dictonary.findWord("aach"));
+//		System.out.println(dictonary.findWord("b"));
 		
 //		int first = findPrefix(words, "ac");
 //		int last = findLast(words, "ad");
@@ -36,6 +38,41 @@ public class searchPrefix
 //			System.out.println(word);
 //		}
 		
+	}
+	
+	public static WordItem[] readDictonary()
+	{
+		Scanner fin = openInputFile("files/dictSmall.txt");
+		WordItem dict[] = new WordItem[30];
+		String word = "";
+		int frequency = 0, i = 0;
+		while(fin.hasNext())
+		{
+			word = fin.next();
+			frequency = Integer.valueOf(fin.next());
+			dict[i] = new WordItem(word, frequency);
+			i++;
+		}
+		return dict;
+	}
+	
+	public static Scanner openInputFile(String fileName)
+	{
+		Scanner fileScanner = null;
+		File fileHandle;
+
+		try
+		{
+			fileHandle = new File(fileName);
+
+			fileScanner = new Scanner(fileHandle).useDelimiter("\\,|\n");
+		}
+		catch(Exception e)
+		{
+			System.out.println("File " + fileName + " was not found.");
+		}
+
+		return fileScanner;
 	}
 	
 //	public static int findPrefix(WordItem[] ara, String target)
