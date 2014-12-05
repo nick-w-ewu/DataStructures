@@ -5,10 +5,13 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
+import java.util.regex.Pattern;
 
 import javax.swing.*;
  
@@ -202,8 +205,45 @@ class AutoCompleteStudent extends JFrame implements KeyListener {
 	public static void main(String[] args) throws IOException {
 		//WordProcessor wp = new WordProcessor();
 		System.out.println("Initializing .....");
+		WordItem words[] = readDictonary();
+
 		new AutoCompleteStudent(); 
 		System.out.println("Done Intialization and Ready to type in!");
+	}
+	
+	public static WordItem[] readDictonary()
+	{
+		Scanner fin = openInputFile("files/dictSmall.txt");
+		WordItem dict[] = new WordItem[30];
+		String word = "";
+		int frequency = 0, i = 0;
+		while(fin.hasNext())
+		{
+			word = fin.next();
+			frequency = Integer.valueOf(fin.next());
+			dict[i] = new WordItem(word, frequency);
+			i++;
+		}
+		return dict;
+	}
+	
+	public static Scanner openInputFile(String fileName)
+	{
+		Scanner fileScanner = null;
+		File fileHandle;
+
+		try
+		{
+			fileHandle = new File(fileName);
+
+			fileScanner = new Scanner(fileHandle).useDelimiter("\\,|\n");
+		}
+		catch(Exception e)
+		{
+			System.out.println("File " + fileName + " was not found.");
+		}
+
+		return fileScanner;
 	}
 }
 

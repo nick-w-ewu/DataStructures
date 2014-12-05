@@ -16,9 +16,19 @@ public class Trie2
 		ArrayList<String> mostUsed;
 	}
 	
-	public Trie2()
+	public Trie2(WordItem[] d)
 	{
 		this.root = new TrieNode();
+		this.dict = d;
+	}
+	
+	public void insertDictonary()
+	{
+		int i;
+		for(i = 0; i < this.dict.length; i++)
+		{
+			insertString(dict[i].getWord());
+		}
 	}
 
 	public void insertString(String s)
@@ -38,10 +48,117 @@ public class Trie2
 			{
 				cur.children.put(ch, next = new TrieNode());
 				//insert most used words here, compute for each prefix
+				cur.mostUsed = computeMostUsed(prefix);
 			}
 			cur = next;
 		}
 		cur.aword = true;
+	}
+	
+	private ArrayList<String> computeMostUsed(String prefix)
+	{
+		if(prefix == null)
+		{
+			return null;
+		}
+		int low, high;
+		low = findPrefix(prefix);
+		
+		String temp = prefix.substring(0, prefix.length()-1);
+		char last = prefix.charAt(prefix.length()-1);
+		last++;
+		temp = temp + last;
+		
+		high = findLast(temp);
+		
+		ArrayList<String> ret = subArray(low, high);
+		return ret;
+	}
+	
+	private int findPrefix(String target)
+	{
+		int high = this.dict.length-1;
+		int mid = 0;
+		int low = 0;
+
+		while (low <= high)
+		{
+			mid = (low + high)/2;
+
+			if (target.compareTo(this.dict[mid].getWord()) < 0)
+			{
+				high = mid-1;
+				if(target.compareTo(this.dict[mid-1].getWord()) > 0)
+				{
+					return mid;
+				}
+			}
+			else if (target.compareTo(this.dict[mid].getWord()) > 0)
+			{
+				low = mid+1;
+			}
+			else if (target.compareTo(this.dict[mid].getWord()) == 0)
+			{
+				return mid;
+			}
+		}
+
+		return -1;
+	}
+	
+	public int findLast(String target)
+	{
+		int high = this.dict.length-1;
+		int mid = 0;
+		int low = 0;
+
+		while (low <= high)
+		{
+			mid = (low + high)/2;
+
+			if (target.compareTo(this.dict[mid].getWord()) < 0)
+			{
+				high = mid-1;
+			}
+			else if (target.compareTo(this.dict[mid].getWord()) > 0)
+			{
+				if((target.compareTo(this.dict[mid+1].getWord()) < 0) || (target.compareTo(this.dict[mid].getWord()) > 0))
+				{
+					return mid;
+				}
+				low = mid+1;
+			}
+			else if (target.compareTo(this.dict[mid].getWord()) == 0)
+			{
+				return mid;
+			}
+		}
+
+		return -1;
+	}
+	
+	public ArrayList<String> subArray(int low, int high)
+	{
+		int i;
+		ArrayList<WordItem> tempList = new ArrayList<WordItem>();
+		ArrayList<String> newList = new ArrayList<String>();
+		for(i = low; i <= high; i++)
+		{
+			tempList.add(this.dict[i]);
+		}
+		Collections.sort(tempList, new WordItem.WordComparator(true));
+		i = 0;
+		
+		for(WordItem word : tempList)
+		{
+			newList.add(word.getWord());
+			if(i > 9)
+			{
+				break;
+			}
+			i++;
+		}
+		return newList;
 	}
 	
 	public void printSorted()
@@ -54,6 +171,7 @@ public class Trie2
 		if (node.aword)
 		{
 			System.out.println(s);
+			System.out.println(node.mostUsed);
 		}
 		for (Character ch : node.children.keySet())
 		{
@@ -88,26 +206,5 @@ public class Trie2
 		}
 		return false;
 	}
-	
 
-	// Usage example
-	public static void main(String[] args) {
-		
-		Trie2 tr = new Trie2();
-		
-		tr.insertString("hello");
-		tr.insertString("world");
-		tr.insertString("hi");
-		tr.insertString("ant");
-		tr.insertString("an");
-		
-		System.out.println(tr.findWord("ant"));
-		System.out.println(tr.findWord("an"));
-		System.out.println(tr.findWord("hello"));
-		System.out.println(tr.findWord("cant"));
-		System.out.println(tr.findWord("hig"));
-		System.out.println(tr.findWord("he"));
-		
-		tr.printSorted();
-	}
 }
