@@ -22,6 +22,10 @@ public class searchPrefix
 		Trie2 dictonary = new Trie2(words);
 		dictonary.insertDictonary();
 		System.out.println(dictonary.findWord("a"));
+		System.out.println(dictonary.findWord("aa"));
+		System.out.println(dictonary.findWord("aac"));
+		System.out.println(dictonary.findWord("aach"));
+		System.out.println(dictonary.findWord("aac"));
 		
 //		int first = findPrefix(words, "ac");
 //		int last = findLast(words, "ad");

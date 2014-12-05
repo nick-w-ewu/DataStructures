@@ -48,7 +48,7 @@ public class Trie2
 			{
 				cur.children.put(ch, next = new TrieNode());
 				//insert most used words here, compute for each prefix
-				cur.mostUsed = computeMostUsed(prefix);
+				next.mostUsed = computeMostUsed(prefix);
 			}
 			cur = next;
 		}
@@ -126,7 +126,7 @@ public class Trie2
 				{
 					return mid;
 				}
-				else if((target.compareTo(this.dict[mid+1].getWord()) < 0))
+				else if((target.compareTo(this.dict[mid+1].getWord()) <= 0))
 				{
 					return mid;
 				}
