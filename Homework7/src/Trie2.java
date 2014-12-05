@@ -122,7 +122,11 @@ public class Trie2
 			}
 			else if (target.compareTo(this.dict[mid].getWord()) > 0)
 			{
-				if((target.compareTo(this.dict[mid+1].getWord()) < 0) || (target.compareTo(this.dict[mid].getWord()) > 0))
+				if(mid == this.dict.length-1)
+				{
+					return mid;
+				}
+				else if((target.compareTo(this.dict[mid+1].getWord()) < 0))
 				{
 					return mid;
 				}
@@ -179,12 +183,12 @@ public class Trie2
 		}
 	}
 	
-	public boolean findWord(String s)
+	public ArrayList<String> findWord(String s)
 	{
 		return findWord(root, s);
 	}
 	
-	private boolean findWord(TrieNode node, String s)
+	private ArrayList<String> findWord(TrieNode node, String s)
 	{
 		if(s != null)
 		{
@@ -193,18 +197,18 @@ public class Trie2
 			TrieNode child = node.children.get(ch);	   //return the child that ch associated with. 
 			if(s.length() == 1 && child != null)//if s contains only one letter, and current node has a child associated with that letter, we find the prefix in Trie!
 			{
-				return true;
+				return child.mostUsed;
 			}	//base case
 			if(child == null)
 			{
-				return false;
+				return null;
 			}
 			else
 			{
 				return findWord(child, rest);//recursive, In this way, we follow the path of the trie from root down towards leaf
 			}
 		}
-		return false;
+		return null;
 	}
 
 }
